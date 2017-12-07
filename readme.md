@@ -26,8 +26,8 @@
 3. 执行 `gradle build` 编译打包，完成后在 build 目录下的libs将生成 ROOT.war
 # 部署
 1. 将 war 包部署到 Tomcat 的 webapps 目录下，然后启动服务器，注意查看 logs 目录下的日志情况，是否有报错
-2. post访问 http://localhost:8080/api/init 进行数据插入到neo4j数据库中
-3. 浏览器访问 http://localhost:8080/（tomcat默认），开始体验
+2. post访问 http://localhost:8080/api/init 进行数据插入到neo4j数据库中，一次插入，终身体验
+3. 浏览器访问 http://localhost:8080/（tomcat默认） ，开始体验
 
 
 
