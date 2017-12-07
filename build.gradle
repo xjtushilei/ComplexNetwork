@@ -1,0 +1,42 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'com.xjtushilei'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.7.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.7.0'
+	compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.6.0'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+    compile group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '1.4.5'
+
+
+
+}
