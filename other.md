@@ -2,9 +2,6 @@
 
 相关文章请 [浏览](http://xjtushilei.com/2017/02/20/%E4%B8%AD%E5%9B%BD%E5%A8%B1%E4%B9%90%E5%9C%88%E5%85%B3%E7%B3%BB%E6%8C%96%E6%8E%98-%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E5%A4%A7%E4%BD%9C%E4%B8%9A/) 我的个人博客！
 
-# 安装和运行介绍
-
-请移步 [install.md](install.md)
 
 # 效果预览
 看最后
