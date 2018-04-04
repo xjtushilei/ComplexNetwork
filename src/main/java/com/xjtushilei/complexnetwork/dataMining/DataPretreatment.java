@@ -19,7 +19,7 @@ public class DataPretreatment {
     private static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("DataPretreatment");
 
     public static void main(String[] args) throws IOException {
-        deleteAll();
+//        deleteAll();
         inset();
     }
 
@@ -47,6 +47,7 @@ public class DataPretreatment {
         ObjectMapper objectMapper = new ObjectMapper();
         JavaType javaType1 = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, Relation.class);
         relationList = objectMapper.readValue(json, javaType1);
+        logger.info("关系总数： " + relationList.size());
         return relationList;
     }
 
@@ -66,29 +67,39 @@ public class DataPretreatment {
     private static void inset() throws IOException {
         Driver driver = GraphDatabase.driver(config.NEO4J_IP, AuthTokens.basic(config.NEO4J_USER, config.NEO4J_PASSWD));
 
-        try (Session session = driver.session()) {
 
-            /*
-             * 插入人
-             */
-            HashSet<Person> persons = getPerson();
-            try (Transaction tx = session.beginTransaction()) {
-                for (Person person : persons) {
-                    tx.run("CREATE (a:Person {name: {name}, id: {id}})",
-                            parameters("name", person.getName(),
-                                    "id", person.getId()
-                            ));
-                    tx.success();
-                }
-            }
 
-            /*
-             * 插入关系
-             */
-            ArrayList<Relation> relationSet = deDuplication();
-            for (Relation relation : relationSet) {
+        /*
+         * 插入人
+         */
+        HashSet<Person> persons = getPerson();
 
+//        persons.parallelStream().forEach(person -> {
+//            try (Session session = driver.session()) {
+//                try (Transaction tx = session.beginTransaction()) {
+//                    tx.run("CREATE (a:Person {name: {name}, id: {id}})",
+//                            parameters("name", person.getName(),
+//                                    "id", person.getId()
+//                            ));
+//                    tx.success();
+//                }
+//            }
+//        });
+        logger.info("插入节点结束！");
+        /*
+         * 插入关系
+         */
+        ArrayList<Relation> relationSet = deDuplication();
+
+        relationSet.parallelStream().forEach(relation ->
+        {
+            try (Session session = driver.session()) {
                 try (Transaction tx = session.beginTransaction()) {
+                    String relationShip = relation.getRelationship().replaceAll("[\\pP\\p{Punct}]", "");
+                    relationShip = relationShip.replace(" ", "");
+                    if (relationShip.charAt(0) >= '0' && relationShip.charAt(0) <= 'z') {
+                        relationShip = "关系是" + relationShip;
+                    }
                     tx.run("MATCH (a:Person),(b:Person) "
                                     + "WHERE a.id = {id1} AND b.id ={id2}"
                                     + " CREATE (a)-[r:" + relation.getRelationship().replaceAll("[\\pP\\p{Punct}]", "") + " { description: a.name + '<->' + b.name }]->(b)",
@@ -98,9 +109,9 @@ public class DataPretreatment {
                     tx.success();
                 }
             }
-        }
+        });
         driver.close();
-        logger.info("插入节点和关系结束！");
+        logger.info("插入关系结束！");
 
     }
 
