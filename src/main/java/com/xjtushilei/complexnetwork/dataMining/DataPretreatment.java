@@ -74,17 +74,17 @@ public class DataPretreatment {
          */
         HashSet<Person> persons = getPerson();
 
-//        persons.parallelStream().forEach(person -> {
-//            try (Session session = driver.session()) {
-//                try (Transaction tx = session.beginTransaction()) {
-//                    tx.run("CREATE (a:Person {name: {name}, id: {id}})",
-//                            parameters("name", person.getName(),
-//                                    "id", person.getId()
-//                            ));
-//                    tx.success();
-//                }
-//            }
-//        });
+        persons.parallelStream().forEach(person -> {
+            try (Session session = driver.session()) {
+                try (Transaction tx = session.beginTransaction()) {
+                    tx.run("CREATE (a:Person {name: {name}, id: {id}})",
+                            parameters("name", person.getName(),
+                                    "id", person.getId()
+                            ));
+                    tx.success();
+                }
+            }
+        });
         logger.info("插入节点结束！");
         /*
          * 插入关系

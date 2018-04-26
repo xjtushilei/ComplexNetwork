@@ -48,30 +48,15 @@ public class API {
             case "个人关系网":
                 result = Cypher.closePathByBeo4j(name1);
                 break;
-            case "Dijkstra算法":
+            case "随机最短路":
                 result = Cypher.ShortestPathsByBeo4jBFS(name1, name2);
                 break;
-            case "Floyd算法":
-                result = Cypher.shortestPathByBeo4j(name1, name2);
-                break;
-            case "Bellman-Ford算法":
-                result = Cypher.ShortestPathsByBeo4j(name1, name2, 2);
-                break;
-            case "SPFA":
-                result = Cypher.ShortestPathsByBeo4j(name1, name2, 3);
-                break;
-            case "Warshall":
-                result = Cypher.ShortestPathsByBeo4j(name1, name2, 2);
-                break;
-            case "Johnson":
-                result = Cypher.ShortestPathsByBeo4j(name1, name2, 2);
-                break;
-            case "ALL":
+            case "所有最短路":
                 result = Cypher.allShortestPathsByBeo4j(name1, name2);
                 break;
 
             default:
-                result = Cypher.ShortestPathsByBeo4j(name1, name2, 2);
+                result = Cypher.ShortestPathsByBeo4jBFS(name1, name2);
                 break;
         }
 

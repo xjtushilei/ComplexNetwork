@@ -141,11 +141,8 @@ public class Cypher {
 
                 LinkedList<Map<String, Object>> edges = new LinkedList<>();
                 Record record = null;
-                if (records.size() >= 2) {
-                    record = records.get(1);
-                } else {
-                    record = records.get(0);
-                }
+                Random random = new Random(records.size());
+                record = records.get(random.nextInt());
                 {
 
                     /**
