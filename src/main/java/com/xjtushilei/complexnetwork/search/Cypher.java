@@ -141,8 +141,8 @@ public class Cypher {
 
                 LinkedList<Map<String, Object>> edges = new LinkedList<>();
                 Record record = null;
-                Random random = new Random(records.size());
-                record = records.get(random.nextInt());
+                Random random = new Random();
+                record = records.get(random.nextInt(records.size()));
                 {
 
                     /**
