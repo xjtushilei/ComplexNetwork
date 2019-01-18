@@ -1,0 +1,33 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.2.RELEASE'
+    }
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.xjtu'
+version = ''
+sourceCompatibility = '1.8'
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.8.0'
+}
