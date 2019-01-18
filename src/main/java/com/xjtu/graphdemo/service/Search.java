@@ -6,7 +6,9 @@ import com.xjtu.graphdemo.entity.Relation;
 import com.xjtu.graphdemo.entity.RelationBean;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -16,16 +18,15 @@ public class Search {
     private static HashSet<Relation> relationSet = null;
 
     public static void main(String[] args) {
-        shortestPathByGuoZhaoTong("周星驰", "周杰伦");
+        shortestPathByGuoZhaoTong("周星驰" , "周杰伦");
     }
 
     public static RelationBean shortestPathByGuoZhaoTong(String name1, String name2) {
         if (relationSet == null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                ClassPathResource resource = new ClassPathResource("classpath:data/relation.json");
-                InputStream inputStream = resource.getInputStream();
-                String json = IOUtils.toString(inputStream, "utf-8");
+                InputStream stream = Search.class.getClassLoader().getResourceAsStream("data/relation.json");
+                String json = IOUtils.toString(stream, "utf-8");
                 relationSet = mapper.readValue(json, new TypeReference<HashSet<Relation>>() {
                 });
             } catch (IOException e) {
